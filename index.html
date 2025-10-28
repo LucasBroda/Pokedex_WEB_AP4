@@ -57,6 +57,10 @@
             <button id="boutonAfficherEquipe" class="bouton-equipe">
                 👥 Mon Équipe (<span id="compteurEquipe">0</span>/6)
             </button>
+            
+            <button id="boutonCreerPokemon" class="bouton-creer-pokemon">
+                ✨ Créer mon Pokémon
+            </button>
         </div>
 
         <!-- Indicateur de chargement -->
@@ -97,6 +101,127 @@
 
     <!-- Overlay pour le panneau -->
     <div id="overlayPanneau" class="overlay-panneau"></div>
+
+    <!-- Modale de création de Pokémon -->
+    <div id="modaleCreation" class="modale-creation">
+        <div class="contenu-modale-creation">
+            <span class="bouton-fermer-creation">&times;</span>
+            <h2 class="titre-modale-creation">✨ Créer mon Pokémon personnalisé</h2>
+            
+            <form id="formulaireCreation" class="formulaire-creation">
+                <div class="groupe-champ">
+                    <label for="nomPokemon" class="etiquette-champ">Nom du Pokémon *</label>
+                    <input 
+                        type="text" 
+                        id="nomPokemon" 
+                        name="nomPokemon" 
+                        class="champ-saisie"
+                        placeholder="Ex: Dracofeu"
+                        required
+                        minlength="3"
+                        maxlength="20"
+                    >
+                    <span class="message-erreur" id="erreurNom"></span>
+                </div>
+
+                <div class="groupe-champ">
+                    <label for="typePokemon" class="etiquette-champ">Type principal *</label>
+                    <select id="typePokemon" name="typePokemon" class="champ-saisie" required>
+                        <option value="">-- Sélectionner un type --</option>
+                        <option value="normal">Normal</option>
+                        <option value="fire">Feu</option>
+                        <option value="water">Eau</option>
+                        <option value="electric">Électrique</option>
+                        <option value="grass">Plante</option>
+                        <option value="ice">Glace</option>
+                        <option value="fighting">Combat</option>
+                        <option value="poison">Poison</option>
+                        <option value="ground">Sol</option>
+                        <option value="flying">Vol</option>
+                        <option value="psychic">Psy</option>
+                        <option value="bug">Insecte</option>
+                        <option value="rock">Roche</option>
+                        <option value="ghost">Spectre</option>
+                        <option value="dragon">Dragon</option>
+                        <option value="dark">Ténèbres</option>
+                        <option value="steel">Acier</option>
+                        <option value="fairy">Fée</option>
+                    </select>
+                    <span class="message-erreur" id="erreurType"></span>
+                </div>
+
+                <div class="groupe-champ">
+                    <label for="taillePokemon" class="etiquette-champ">Taille (en mètres) *</label>
+                    <input 
+                        type="number" 
+                        id="taillePokemon" 
+                        name="taillePokemon" 
+                        class="champ-saisie"
+                        placeholder="Ex: 1.7"
+                        step="0.1"
+                        min="0.1"
+                        max="20"
+                        required
+                    >
+                    <span class="message-erreur" id="erreurTaille"></span>
+                </div>
+
+                <div class="groupe-champ">
+                    <label for="poidsPokemon" class="etiquette-champ">Poids (en kg) *</label>
+                    <input 
+                        type="number" 
+                        id="poidsPokemon" 
+                        name="poidsPokemon" 
+                        class="champ-saisie"
+                        placeholder="Ex: 90.5"
+                        step="0.1"
+                        min="0.1"
+                        max="1000"
+                        required
+                    >
+                    <span class="message-erreur" id="erreurPoids"></span>
+                </div>
+
+                <div class="groupe-champ">
+                    <label for="descriptionPokemon" class="etiquette-champ">Description *</label>
+                    <textarea 
+                        id="descriptionPokemon" 
+                        name="descriptionPokemon" 
+                        class="champ-saisie champ-textarea"
+                        placeholder="Décrivez votre Pokémon..."
+                        required
+                        minlength="20"
+                        maxlength="200"
+                        rows="4"
+                    ></textarea>
+                    <span class="compteur-caracteres"><span id="compteurCaracteres">0</span>/200</span>
+                    <span class="message-erreur" id="erreurDescription"></span>
+                </div>
+
+                <div class="groupe-champ">
+                    <label for="urlImage" class="etiquette-champ">URL de l'image</label>
+                    <input 
+                        type="url" 
+                        id="urlImage" 
+                        name="urlImage" 
+                        class="champ-saisie"
+                        placeholder="https://exemple.com/image.png"
+                    >
+                    <span class="message-erreur" id="erreurUrl"></span>
+                    <small class="aide-champ">Laissez vide pour une image par défaut</small>
+                </div>
+
+                <div class="groupe-boutons">
+                    <button type="submit" class="bouton-soumettre">
+                        ✨ Créer mon Pokémon
+                    </button>
+                    <button type="button" id="boutonAnnuler" class="bouton-annuler">
+                        Annuler
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
