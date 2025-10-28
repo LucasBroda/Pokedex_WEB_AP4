@@ -432,6 +432,28 @@ body.theme-sombre .icone-theme.lune {
 
 .entete-modale {
     margin-bottom: 30px;
+    position: relative;
+}
+
+.bouton-favori-modale {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    padding: 8px;
+    z-index: 10;
+}
+
+.bouton-favori-modale:hover {
+    transform: scale(1.2);
+}
+
+.bouton-favori-modale.actif {
+    animation: battement 0.5s ease;
 }
 
 .image-pokemon-modale {
@@ -659,31 +681,7 @@ body.theme-sombre .icone-theme.lune {
     }
 }
 
-/* Styles pour les boutons favoris et équipe sur les cartes */
-.entete-carte {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
-.bouton-favori {
-    background: transparent;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-    padding: 5px;
-}
-
-.bouton-favori:hover {
-    transform: scale(1.2);
-}
-
-.bouton-favori.actif {
-    animation: battement 0.5s ease;
-}
-
+/* Styles pour les boutons équipe sur les cartes */
 .bouton-ajouter-equipe {
     width: 100%;
     padding: 8px 12px;

@@ -173,16 +173,10 @@ function creerCartePokemon(pokemon) {
     const types = pokemon.types.map(type => type.type.name);
     const typePrincipal = types[0];
     
-    const estFavori = pokemonFavoris.includes(pokemon.id);
     const estDansEquipe = equipePokemon.some(p => p.id === pokemon.id);
     
     carte.innerHTML = `
-        <div class="entete-carte">
-            <div class="identifiant-pokemon">#${String(pokemon.id).padStart(3, '0')}</div>
-            <button class="bouton-favori ${estFavori ? 'actif' : ''}" data-id="${pokemon.id}" title="${estFavori ? 'Retirer des favoris' : 'Ajouter aux favoris'}">
-                ${estFavori ? '❤️' : '🤍'}
-            </button>
-        </div>
+        <div class="identifiant-pokemon">#${String(pokemon.id).padStart(3, '0')}</div>
         <img src="${pokemon.sprites.other['official-artwork'].front_default || pokemon.sprites.front_default}" 
              alt="${pokemon.name}" 
              class="image-pokemon">
@@ -201,18 +195,8 @@ function creerCartePokemon(pokemon) {
     // Ajouter couleur de fond basée sur le type principal
     carte.style.setProperty('--couleur-type', obtenirCouleurType(typePrincipal));
     
-    // Écouteur pour afficher les détails (sur l'image ou le nom)
-    const imageElement = carte.querySelector('.image-pokemon');
-    const nomElement = carte.querySelector('.nom-pokemon');
-    imageElement.addEventListener('click', () => montrerDetailsPokemon(pokemon.id));
-    nomElement.addEventListener('click', () => montrerDetailsPokemon(pokemon.id));
-    
-    // Écouteur pour le bouton favori
-    const boutonFavori = carte.querySelector('.bouton-favori');
-    boutonFavori.addEventListener('click', (e) => {
-        e.stopPropagation();
-        basculerFavori(pokemon.id);
-    });
+    // Écouteur pour afficher les détails (clic sur toute la carte)
+    carte.addEventListener('click', () => montrerDetailsPokemon(pokemon.id));
     
     // Écouteur pour le bouton équipe
     const boutonEquipe = carte.querySelector('.bouton-ajouter-equipe');
@@ -236,8 +220,13 @@ function afficherDetailsPokemon(pokemon, donneesEspece) {
         descriptionFrancaise.flavor_text.replaceAll('\f', ' ') : 
         'Aucune description disponible.';
     
+    const estFavori = pokemonFavoris.includes(pokemon.id);
+    
     corpsModale.innerHTML = `
         <div class="entete-modale">
+            <button class="bouton-favori-modale ${estFavori ? 'actif' : ''}" data-id="${pokemon.id}" title="${estFavori ? 'Retirer des favoris' : 'Ajouter aux favoris'}">
+                ${estFavori ? '❤️' : '🤍'}
+            </button>
             <img src="${pokemon.sprites.other['official-artwork'].front_default || pokemon.sprites.front_default}" 
                  alt="${pokemon.name}" 
                  class="image-pokemon-modale">
@@ -299,6 +288,12 @@ function afficherDetailsPokemon(pokemon, donneesEspece) {
             `).join('')}
         </div>
     `;
+    
+    // Ajouter l'écouteur pour le bouton favori dans la modale
+    const boutonFavoriModale = corpsModale.querySelector('.bouton-favori-modale');
+    boutonFavoriModale.addEventListener('click', () => {
+        basculerFavori(pokemon.id);
+    });
     
     ouvrirModale();
 }
@@ -456,21 +451,18 @@ function basculerFavori(pokemonId) {
     
     sauvegarderFavoris();
     
-    // Mettre à jour l'affichage
+    // Mettre à jour le bouton dans la modale
+    const boutonModale = corpsModale.querySelector('.bouton-favori-modale');
+    if (boutonModale) {
+        const estFavori = pokemonFavoris.includes(pokemonId);
+        boutonModale.classList.toggle('actif', estFavori);
+        boutonModale.textContent = estFavori ? '❤️' : '🤍';
+        boutonModale.title = estFavori ? 'Retirer des favoris' : 'Ajouter aux favoris';
+    }
+    
+    // Si le filtre favoris est actif, rafraîchir l'affichage
     if (typeSelectionne === 'favoris') {
         gererFiltreType();
-    } else {
-        // Mettre à jour uniquement la carte concernée
-        const cartes = document.querySelectorAll('.carte-pokemon');
-        for (const carte of cartes) {
-            const boutonFavori = carte.querySelector(`[data-id="${pokemonId}"]`);
-            if (boutonFavori && boutonFavori.classList.contains('bouton-favori')) {
-                const estFavori = pokemonFavoris.includes(pokemonId);
-                boutonFavori.classList.toggle('actif', estFavori);
-                boutonFavori.textContent = estFavori ? '❤️' : '🤍';
-                boutonFavori.title = estFavori ? 'Retirer des favoris' : 'Ajouter aux favoris';
-            }
-        }
     }
 }
 
@@ -573,7 +565,7 @@ function afficherEquipe() {
     const boutonsRetirer = conteneurEquipe.querySelectorAll('.bouton-retirer');
     for (const bouton of boutonsRetirer) {
         bouton.addEventListener('click', () => {
-            const pokemonId = Number.parseInt(bouton.getAttribute('data-id'), 10);
+            const pokemonId = Number.parseInt(bouton.dataset.id, 10);
             retirerDeEquipe(pokemonId);
         });
     }
