@@ -1,76 +1,81 @@
-/* Reset and Base Styles */
+/* Réinitialisation et styles de base */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Ensemble des variables CSS représentant les différentes parties de l'application */
 :root {
-    /* Light Theme (default) */
-    --bg-gradient-start: #667eea;
-    --bg-gradient-end: #764ba2;
-    --text-primary: #333;
-    --text-secondary: #666;
-    --text-light: rgba(255, 255, 255, 0.9);
-    --card-bg: #ffffff;
-    --card-shadow: rgba(0, 0, 0, 0.2);
-    --card-shadow-hover: rgba(0, 0, 0, 0.3);
-    --input-bg: #ffffff;
-    --modal-bg: #ffffff;
-    --modal-overlay: rgba(0, 0, 0, 0.7);
-    --info-item-bg: #f8f8f8;
-    --ability-bg: #f0f0f0;
-    --ability-text: #666;
-    --stat-bar-bg: #f0f0f0;
-    --loading-text: white;
-    --close-btn-color: #999;
-    --close-btn-hover: #333;
+    --degrade-arriere-plan-debut: #667eea;
+    --degrade-arriere-plan-fin: #764ba2;
+    --texte-principal: #333;
+    --texte-secondaire: #666;
+    --texte-clair: rgba(255, 255, 255, 0.9);
+    --arriere-plan-carte: #ffffff;
+    --ombre-carte: rgba(0, 0, 0, 0.2);
+    --ombre-carte-survol: rgba(0, 0, 0, 0.3);
+    --arriere-plan-champ: #ffffff;
+    --arriere-plan-modale: #ffffff;
+    --superposition-modale: rgba(0, 0, 0, 0.7);
+    --arriere-plan-element-info: #f8f8f8;
+    --arriere-plan-capacite: #f0f0f0;
+    --texte-capacite: #666;
+    --arriere-plan-barre-stat: #f0f0f0;
+    --texte-chargement: white;
+    --couleur-bouton-fermer: #999;
+    --couleur-bouton-fermer-survol: #333;
+    --arriere-plan-panneau: #ffffff;
+    --bordure-panneau: #e0e0e0;
 }
 
-body.dark-theme {
-    /* Dark Theme */
-    --bg-gradient-start: #1a1a2e;
-    --bg-gradient-end: #16213e;
-    --text-primary: #e4e4e4;
-    --text-secondary: #b0b0b0;
-    --text-light: rgba(255, 255, 255, 0.95);
-    --card-bg: #2a2a3e;
-    --card-shadow: rgba(0, 0, 0, 0.5);
-    --card-shadow-hover: rgba(0, 0, 0, 0.7);
-    --input-bg: #2a2a3e;
-    --modal-bg: #2a2a3e;
-    --modal-overlay: rgba(0, 0, 0, 0.85);
-    --info-item-bg: #1f1f2e;
-    --ability-bg: #1f1f2e;
-    --ability-text: #b0b0b0;
-    --stat-bar-bg: #1f1f2e;
-    --loading-text: #e4e4e4;
-    --close-btn-color: #b0b0b0;
-    --close-btn-hover: #e4e4e4;
+/* Ensemble des variables CSS pour le thème sombre */
+body.theme-sombre {
+    --degrade-arriere-plan-debut: #1a1a2e;
+    --degrade-arriere-plan-fin: #16213e;
+    --texte-principal: #e4e4e4;
+    --texte-secondaire: #b0b0b0;
+    --texte-clair: rgba(255, 255, 255, 0.95);
+    --arriere-plan-carte: #2a2a3e;
+    --ombre-carte: rgba(0, 0, 0, 0.5);
+    --ombre-carte-survol: rgba(0, 0, 0, 0.7);
+    --arriere-plan-champ: #2a2a3e;
+    --arriere-plan-modale: #2a2a3e;
+    --superposition-modale: rgba(0, 0, 0, 0.85);
+    --arriere-plan-element-info: #1f1f2e;
+    --arriere-plan-capacite: #1f1f2e;
+    --texte-capacite: #b0b0b0;
+    --arriere-plan-barre-stat: #1f1f2e;
+    --texte-chargement: #e4e4e4;
+    --couleur-bouton-fermer: #b0b0b0;
+    --couleur-bouton-fermer-survol: #e4e4e4;
+    --arriere-plan-panneau: #2a2a3e;
+    --bordure-panneau: #3a3a5e;
 }
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+    background: linear-gradient(135deg, var(--degrade-arriere-plan-debut) 0%, var(--degrade-arriere-plan-fin) 100%);
     min-height: 100vh;
     padding: 20px;
-    color: var(--text-primary);
+    color: var(--texte-principal);
+    /* Propriétés CSS afin de pouvoir avoir des transitions fluides*/
     transition: background 0.3s ease, color 0.3s ease;
 }
 
-.container {
+.conteneur {
     max-width: 1400px;
     margin: 0 auto;
 }
 
-/* Header */
-.header {
+/* En-tête de l'application */
+.entete {
     text-align: center;
     margin-bottom: 40px;
-    animation: fadeInDown 0.8s ease;
+    animation: apparitionHaut 0.8s ease;
 }
 
-.header-top {
+.haut-entete {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -78,7 +83,7 @@ body {
     margin-bottom: 10px;
 }
 
-.title {
+.titre {
     font-size: 3.5rem;
     color: white;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
@@ -87,7 +92,7 @@ body {
     gap: 15px;
 }
 
-.theme-toggle {
+.basculeur-theme {
     position: absolute;
     right: 20px;
     background: rgba(255, 255, 255, 0.2);
@@ -104,128 +109,128 @@ body {
     overflow: hidden;
 }
 
-.theme-toggle:hover {
+.basculeur-theme:hover {
     transform: scale(1.1);
     background: rgba(255, 255, 255, 0.3);
 }
 
-.theme-icon {
+.icone-theme {
     font-size: 1.8rem;
     position: absolute;
     transition: all 0.3s ease;
 }
 
-.theme-icon.sun {
+.icone-theme.soleil {
     opacity: 1;
     transform: rotate(0deg) scale(1);
 }
 
-.theme-icon.moon {
+.icone-theme.lune {
     opacity: 0;
     transform: rotate(180deg) scale(0);
 }
 
-body.dark-theme .theme-icon.sun {
+body.theme-sombre .icone-theme.soleil {
     opacity: 0;
     transform: rotate(-180deg) scale(0);
 }
 
-body.dark-theme .theme-icon.moon {
+body.theme-sombre .icone-theme.lune {
     opacity: 1;
     transform: rotate(0deg) scale(1);
 }
 
-.pokeball-icon {
+.icone-pokeball {
     font-size: 3rem;
-    animation: rotate 3s linear infinite;
+    animation: rotation 3s linear infinite;
 }
 
-.subtitle {
+.sous-titre {
     color: rgba(255, 255, 255, 0.9);
     font-size: 1.2rem;
     font-weight: 300;
 }
 
-/* Search Bar */
-.search-container {
+/* Barre de recherche */
+.conteneur-recherche {
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
     gap: 10px;
-    animation: fadeIn 1s ease;
+    animation: apparition 1s ease;
 }
 
-.search-input {
+.champ-recherche {
     width: 100%;
     max-width: 500px;
     padding: 15px 20px;
     border: none;
     border-radius: 50px;
     font-size: 1rem;
-    background: var(--input-bg);
-    color: var(--text-primary);
-    box-shadow: 0 4px 15px var(--card-shadow);
+    background: var(--arriere-plan-champ);
+    color: var(--texte-principal);
+    box-shadow: 0 4px 15px var(--ombre-carte);
     outline: none;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.search-input:focus {
+.champ-recherche:focus {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px var(--card-shadow-hover);
+    box-shadow: 0 6px 20px var(--ombre-carte-survol);
 }
 
-.search-btn {
+.bouton-recherche {
     padding: 15px 25px;
-    background: var(--input-bg);
-    color: var(--text-primary);
+    background: var(--arriere-plan-champ);
+    color: var(--texte-principal);
     border: none;
     border-radius: 50px;
     font-size: 1.2rem;
     cursor: pointer;
-    box-shadow: 0 4px 15px var(--card-shadow);
+    box-shadow: 0 4px 15px var(--ombre-carte);
     transition: all 0.3s ease;
 }
 
-.search-btn:hover {
+.bouton-recherche:hover {
     transform: scale(1.1);
-    box-shadow: 0 6px 20px var(--card-shadow-hover);
+    box-shadow: 0 6px 20px var(--ombre-carte-survol);
 }
 
-/* Filter */
-.filter-container {
+/* Filtre */
+.conteneur-filtre {
     display: flex;
     justify-content: center;
     margin-bottom: 30px;
-    animation: fadeIn 1.2s ease;
+    animation: apparition 1.2s ease;
 }
 
-.filter-select {
+.selecteur-filtre {
     padding: 12px 20px;
     border: none;
     border-radius: 25px;
     font-size: 1rem;
-    background: var(--input-bg);
-    color: var(--text-primary);
-    box-shadow: 0 4px 15px var(--card-shadow);
+    background: var(--arriere-plan-champ);
+    color: var(--texte-principal);
+    box-shadow: 0 4px 15px var(--ombre-carte);
     cursor: pointer;
     outline: none;
     transition: all 0.3s ease;
 }
 
-.filter-select:hover {
+.selecteur-filtre:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px var(--card-shadow-hover);
+    box-shadow: 0 6px 20px var(--ombre-carte-survol);
 }
 
-/* Loading Spinner */
-.loading {
+/* Indicateur de chargement */
+.chargement {
     display: none;
     text-align: center;
     padding: 40px;
-    color: var(--loading-text);
+    color: var(--texte-chargement);
 }
 
-.loading.active {
+.chargement.actif {
     display: block;
 }
 
@@ -239,28 +244,28 @@ body.dark-theme .theme-icon.moon {
     animation: spin 1s linear infinite;
 }
 
-/* Pokemon Grid */
-.pokemon-grid {
+/* Grille Pokémon */
+.grille-pokemon {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 25px;
     margin-bottom: 40px;
 }
 
-.pokemon-card {
-    background: var(--card-bg);
+.carte-pokemon {
+    background: var(--arriere-plan-carte);
     border-radius: 20px;
     padding: 25px;
     text-align: center;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 5px 15px var(--card-shadow);
-    animation: fadeInUp 0.5s ease;
+    box-shadow: 0 5px 15px var(--ombre-carte);
+    animation: apparitionBas 0.5s ease;
     position: relative;
     overflow: hidden;
 }
 
-.pokemon-card::before {
+.carte-pokemon::before {
     content: '';
     position: absolute;
     top: 0;
@@ -271,12 +276,12 @@ body.dark-theme .theme-icon.moon {
     border-radius: 20px 20px 0 0;
 }
 
-.pokemon-card:hover {
+.carte-pokemon:hover {
     transform: translateY(-10px) scale(1.03);
-    box-shadow: 0 15px 30px var(--card-shadow-hover);
+    box-shadow: 0 15px 30px var(--ombre-carte-survol);
 }
 
-.pokemon-id {
+.identifiant-pokemon {
     position: absolute;
     top: 10px;
     right: 15px;
@@ -285,36 +290,36 @@ body.dark-theme .theme-icon.moon {
     border-radius: 15px;
     font-size: 0.85rem;
     font-weight: bold;
-    color: var(--text-secondary);
+    color: var(--texte-secondaire);
 }
 
-.pokemon-image {
+.image-pokemon {
     width: 150px;
     height: 150px;
     margin: 20px auto;
     transition: transform 0.3s ease;
 }
 
-.pokemon-card:hover .pokemon-image {
+.carte-pokemon:hover .image-pokemon {
     transform: scale(1.1) rotate(5deg);
 }
 
-.pokemon-name {
+.nom-pokemon {
     font-size: 1.5rem;
     font-weight: bold;
     margin-bottom: 10px;
     text-transform: capitalize;
-    color: var(--text-primary);
+    color: var(--texte-principal);
 }
 
-.pokemon-types {
+.types-pokemon {
     display: flex;
     justify-content: center;
     gap: 10px;
     flex-wrap: wrap;
 }
 
-.type-badge {
+.badge-type {
     padding: 6px 16px;
     border-radius: 20px;
     font-size: 0.85rem;
@@ -344,37 +349,37 @@ body.dark-theme .theme-icon.moon {
 .type-steel { background: #B8B8D0; }
 .type-fairy { background: #EE99AC; }
 
-/* Load More Button */
-.load-more-container {
+/* Bouton charger plus */
+.conteneur-charger-plus {
     text-align: center;
     margin: 30px 0;
 }
 
-.load-more-btn {
+.bouton-charger-plus {
     padding: 15px 40px;
-    background: var(--card-bg);
+    background: var(--arriere-plan-carte);
     border: none;
     border-radius: 50px;
     font-size: 1.1rem;
     font-weight: 600;
     cursor: pointer;
-    box-shadow: 0 4px 15px var(--card-shadow);
+    box-shadow: 0 4px 15px var(--ombre-carte);
     transition: all 0.3s ease;
     color: #667eea;
 }
 
-.load-more-btn:hover {
+.bouton-charger-plus:hover {
     transform: translateY(-3px);
-    box-shadow: 0 6px 20px var(--card-shadow-hover);
+    box-shadow: 0 6px 20px var(--ombre-carte-survol);
 }
 
-.load-more-btn:disabled {
+.bouton-charger-plus:disabled {
     opacity: 0.5;
     cursor: not-allowed;
 }
 
-/* Modal */
-.modal {
+/* Modale */
+.modale {
     display: none;
     position: fixed;
     z-index: 1000;
@@ -382,18 +387,18 @@ body.dark-theme .theme-icon.moon {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: var(--modal-overlay);
-    animation: fadeIn 0.3s ease;
+    background-color: var(--superposition-modale);
+    animation: apparition 0.3s ease;
 }
 
-.modal.active {
+.modale.actif {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.modal-content {
-    background: var(--modal-bg);
+.contenu-modale {
+    background: var(--arriere-plan-modale);
     padding: 40px;
     border-radius: 25px;
     max-width: 700px;
@@ -401,89 +406,89 @@ body.dark-theme .theme-icon.moon {
     max-height: 90vh;
     overflow-y: auto;
     position: relative;
-    animation: slideIn 0.4s ease;
+    animation: glissement 0.4s ease;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
 }
 
-.close-btn {
+.bouton-fermer {
     position: absolute;
     top: 15px;
     right: 25px;
     font-size: 2.5rem;
     font-weight: bold;
-    color: var(--close-btn-color);
+    color: var(--couleur-bouton-fermer);
     cursor: pointer;
     transition: color 0.3s ease;
     line-height: 1;
 }
 
-.close-btn:hover {
-    color: var(--close-btn-hover);
+.bouton-fermer:hover {
+    color: var(--couleur-bouton-fermer-survol);
 }
 
-.modal-body {
+.corps-modale {
     text-align: center;
 }
 
-.modal-header {
+.entete-modale {
     margin-bottom: 30px;
 }
 
-.modal-pokemon-image {
+.image-pokemon-modale {
     width: 200px;
     height: 200px;
     margin: 20px auto;
 }
 
-.modal-pokemon-name {
+.nom-pokemon-modale {
     font-size: 2.5rem;
     font-weight: bold;
     text-transform: capitalize;
     margin-bottom: 10px;
-    color: var(--text-primary);
+    color: var(--texte-principal);
 }
 
-.modal-pokemon-id {
+.identifiant-pokemon-modale {
     font-size: 1.2rem;
-    color: var(--text-secondary);
+    color: var(--texte-secondaire);
     margin-bottom: 20px;
 }
 
-.stats-container {
+.conteneur-statistiques {
     margin-top: 30px;
     text-align: left;
 }
 
-.stats-title {
+.titre-statistiques {
     font-size: 1.5rem;
     font-weight: bold;
     margin-bottom: 15px;
-    color: var(--text-primary);
+    color: var(--texte-principal);
 }
 
-.stat-row {
+.ligne-stat {
     display: flex;
     align-items: center;
     margin-bottom: 12px;
 }
 
-.stat-name {
+.nom-stat {
     flex: 0 0 150px;
     font-weight: 600;
     text-transform: capitalize;
-    color: var(--text-secondary);
+    color: var(--texte-secondaire);
 }
 
-.stat-bar-container {
+.conteneur-barre-stat {
     flex: 1;
-    background: var(--stat-bar-bg);
+    background: var(--arriere-plan-barre-stat);
     border-radius: 10px;
     height: 25px;
     overflow: hidden;
     margin: 0 10px;
 }
 
-.stat-bar {
+.barre-stat {
     height: 100%;
     background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
     border-radius: 10px;
@@ -497,69 +502,69 @@ body.dark-theme .theme-icon.moon {
     font-size: 0.85rem;
 }
 
-.stat-value {
+.valeur-stat {
     flex: 0 0 40px;
     text-align: right;
     font-weight: bold;
-    color: var(--text-primary);
+    color: var(--texte-principal);
 }
 
-.abilities-container,
-.info-container {
+.conteneur-capacites,
+.conteneur-info {
     margin-top: 30px;
     text-align: left;
 }
 
-.section-title {
+.titre-section {
     font-size: 1.5rem;
     font-weight: bold;
     margin-bottom: 15px;
-    color: var(--text-primary);
+    color: var(--texte-principal);
 }
 
-.abilities-list {
+.liste-capacites {
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
 }
 
-.ability-badge {
+.badge-capacite {
     padding: 8px 16px;
-    background: var(--ability-bg);
+    background: var(--arriere-plan-capacite);
     border-radius: 20px;
     font-weight: 600;
     text-transform: capitalize;
-    color: var(--ability-text);
+    color: var(--texte-capacite);
 }
 
-.info-grid {
+.grille-info {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 15px;
 }
 
-.info-item {
-    background: var(--info-item-bg);
+.element-info {
+    background: var(--arriere-plan-element-info);
     padding: 15px;
     border-radius: 15px;
 }
 
-.info-label {
+.etiquette-info {
     font-weight: 600;
-    color: var(--text-secondary);
+    color: var(--texte-secondaire);
     margin-bottom: 5px;
     font-size: 0.9rem;
 }
 
-.info-value {
+.valeur-info {
     font-size: 1.1rem;
     font-weight: bold;
-    color: var(--text-primary);
+    color: var(--texte-principal);
     text-transform: capitalize;
 }
 
 /* Animations */
-@keyframes fadeIn {
+@keyframes apparition {
     from {
         opacity: 0;
     }
@@ -568,7 +573,7 @@ body.dark-theme .theme-icon.moon {
     }
 }
 
-@keyframes fadeInDown {
+@keyframes apparitionHaut {
     from {
         opacity: 0;
         transform: translateY(-30px);
@@ -579,7 +584,7 @@ body.dark-theme .theme-icon.moon {
     }
 }
 
-@keyframes fadeInUp {
+@keyframes apparitionBas {
     from {
         opacity: 0;
         transform: translateY(30px);
@@ -590,7 +595,7 @@ body.dark-theme .theme-icon.moon {
     }
 }
 
-@keyframes slideIn {
+@keyframes glissement {
     from {
         opacity: 0;
         transform: scale(0.8);
@@ -607,7 +612,7 @@ body.dark-theme .theme-icon.moon {
     }
 }
 
-@keyframes rotate {
+@keyframes rotation {
     0% {
         transform: rotate(0deg);
     }
@@ -616,40 +621,295 @@ body.dark-theme .theme-icon.moon {
     }
 }
 
-/* Responsive Design */
+/* Design adaptatif */
 @media (max-width: 768px) {
-    .title {
+    .titre {
         font-size: 2.5rem;
     }
     
-    .pokemon-grid {
+    .grille-pokemon {
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
         gap: 15px;
     }
     
-    .modal-content {
+    .contenu-modale {
         padding: 25px;
     }
     
-    .modal-pokemon-name {
+    .nom-pokemon-modale {
         font-size: 2rem;
     }
     
-    .info-grid {
+    .grille-info {
         grid-template-columns: 1fr;
     }
 }
 
 @media (max-width: 480px) {
-    .title {
+    .titre {
         font-size: 2rem;
     }
     
-    .pokemon-grid {
+    .grille-pokemon {
         grid-template-columns: 1fr;
     }
     
-    .search-input {
+    .champ-recherche {
         max-width: 100%;
+    }
+}
+
+/* Styles pour les boutons favoris et équipe sur les cartes */
+.entete-carte {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.bouton-favori {
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    padding: 5px;
+}
+
+.bouton-favori:hover {
+    transform: scale(1.2);
+}
+
+.bouton-favori.actif {
+    animation: battement 0.5s ease;
+}
+
+.bouton-ajouter-equipe {
+    width: 100%;
+    padding: 8px 12px;
+    margin-top: 10px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.bouton-ajouter-equipe:hover:not(.desactive) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.bouton-ajouter-equipe.desactive {
+    background: linear-gradient(135deg, #9ca3af 0%, #6b7280 100%);
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.bouton-equipe {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    margin-left: 15px;
+}
+
+.bouton-equipe:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+/* Panneau latéral de l'équipe */
+.panneau-equipe {
+    position: fixed;
+    top: 0;
+    right: -400px;
+    width: 400px;
+    height: 100vh;
+    background: var(--arriere-plan-panneau);
+    box-shadow: -5px 0 25px rgba(0, 0, 0, 0.3);
+    z-index: 1001;
+    transition: right 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.panneau-equipe.actif {
+    right: 0;
+}
+
+.entete-panneau {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.entete-panneau h2 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.bouton-fermer-panneau {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.bouton-fermer-panneau:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(90deg);
+}
+
+.conteneur-equipe {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.message-equipe-vide {
+    text-align: center;
+    color: var(--texte-secondaire);
+    font-style: italic;
+    margin-top: 40px;
+}
+
+.membre-equipe {
+    background: var(--arriere-plan-carte);
+    border: 2px solid var(--bordure-panneau);
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: all 0.3s ease;
+    animation: glissement 0.4s ease;
+}
+
+.membre-equipe:hover {
+    transform: translateX(-5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.sprite-equipe {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+}
+
+.info-membre-equipe {
+    flex: 1;
+}
+
+.nom-membre-equipe {
+    margin: 0 0 8px 0;
+    font-size: 1.1rem;
+    color: var(--texte-principal);
+    text-transform: capitalize;
+}
+
+.types-membre-equipe {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.badge-type-mini {
+    padding: 3px 8px;
+    border-radius: 10px;
+    font-size: 0.7rem;
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.bouton-retirer {
+    background: #ef4444;
+    border: none;
+    color: white;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bouton-retirer:hover {
+    background: #dc2626;
+    transform: scale(1.1);
+}
+
+.overlay-panneau {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.overlay-panneau.actif {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Animation pour le battement de coeur */
+@keyframes battement {
+    0%, 100% {
+        transform: scale(1);
+    }
+    25% {
+        transform: scale(1.3);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    75% {
+        transform: scale(1.25);
+    }
+}
+
+/* Responsive pour le panneau */
+@media (max-width: 480px) {
+    .panneau-equipe {
+        width: 100%;
+        right: -100%;
+    }
+    
+    .bouton-equipe {
+        padding: 8px 12px;
+        font-size: 0.9rem;
+        margin-left: 10px;
     }
 }

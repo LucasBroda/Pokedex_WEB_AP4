@@ -7,32 +7,33 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <header class="header">
-            <div class="header-top">
-                <h1 class="title">
-                    <span class="pokeball-icon">⚪</span>
+    <div class="conteneur">
+        <!-- En-tête -->
+        <header class="entete">
+            <div class="haut-entete">
+                <h1 class="titre">
+                    <span class="icone-pokeball">⚪</span>
                     Pokédex
                 </h1>
-                <button id="themeToggle" class="theme-toggle" aria-label="Changer de thème">
-                    <span class="theme-icon sun">☀️</span>
-                    <span class="theme-icon moon">🌙</span>
+                <button id="basculeurTheme" class="basculeur-theme" aria-label="Changer de thème">
+                    <span class="icone-theme soleil">☀️</span>
+                    <span class="icone-theme lune">🌙</span>
                 </button>
             </div>
-            <p class="subtitle">Explorez l'univers des Pokémon</p>
+            <p class="sous-titre">Explorez l'univers des Pokémon</p>
         </header>
 
-        <!-- Search Bar -->
-        <div class="search-container">
-            <input type="text" id="searchInput" class="search-input" placeholder="Rechercher un Pokémon...">
-            <button id="searchBtn" class="search-btn">🔍</button>
+        <!-- Barre de recherche -->
+        <div class="conteneur-recherche">
+            <input type="text" id="champRecherche" class="champ-recherche" placeholder="Rechercher un Pokémon...">
+            <button id="boutonRecherche" class="bouton-recherche">🔍</button>
         </div>
 
-        <!-- Filter Options -->
-        <div class="filter-container">
-            <select id="typeFilter" class="filter-select">
+        <!-- Options de filtre -->
+        <div class="conteneur-filtre">
+            <select id="filtreType" class="selecteur-filtre">
                 <option value="">Tous les types</option>
+                <option value="favoris">⭐ Favoris</option>
                 <option value="normal">Normal</option>
                 <option value="fire">Feu</option>
                 <option value="water">Eau</option>
@@ -52,32 +53,50 @@
                 <option value="steel">Acier</option>
                 <option value="fairy">Fée</option>
             </select>
+            
+            <button id="boutonAfficherEquipe" class="bouton-equipe">
+                👥 Mon Équipe (<span id="compteurEquipe">0</span>/6)
+            </button>
         </div>
 
-        <!-- Loading Spinner -->
-        <div id="loading" class="loading">
+        <!-- Indicateur de chargement -->
+        <div id="chargement" class="chargement">
             <div class="spinner"></div>
             <p>Chargement des Pokémon...</p>
         </div>
 
-        <!-- Pokemon Grid -->
-        <div id="pokemonGrid" class="pokemon-grid"></div>
+        <!-- Grille Pokémon -->
+        <div id="grillePokemon" class="grille-pokemon"></div>
 
-        <!-- Load More Button -->
-        <div class="load-more-container">
-            <button id="loadMoreBtn" class="load-more-btn">Charger plus de Pokémon</button>
+        <!-- Bouton charger plus -->
+        <div class="conteneur-charger-plus">
+            <button id="boutonChargerPlus" class="bouton-charger-plus">Charger plus de Pokémon</button>
         </div>
     </div>
 
-    <!-- Modal for Pokemon Details -->
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <div id="modalBody" class="modal-body">
-                <!-- Pokemon details will be inserted here -->
+    <!-- Modale pour les détails Pokémon -->
+    <div id="modale" class="modale">
+        <div class="contenu-modale">
+            <span class="bouton-fermer">&times;</span>
+            <div id="corpsModale" class="corps-modale">
+                <!-- Les détails du Pokémon seront insérés ici -->
             </div>
         </div>
     </div>
+
+    <!-- Panneau de l'équipe -->
+    <aside id="panneauEquipe" class="panneau-equipe">
+        <div class="entete-panneau">
+            <h2>Mon Équipe Pokémon</h2>
+            <button id="boutonFermerPanneau" class="bouton-fermer-panneau">✕</button>
+        </div>
+        <div id="conteneurEquipe" class="conteneur-equipe">
+            <p class="message-equipe-vide">Aucun Pokémon dans l'équipe</p>
+        </div>
+    </aside>
+
+    <!-- Overlay pour le panneau -->
+    <div id="overlayPanneau" class="overlay-panneau"></div>
 
     <script src="script.js"></script>
 </body>
