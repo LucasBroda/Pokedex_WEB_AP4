@@ -53,6 +53,26 @@ body.theme-sombre {
     --bordure-panneau: #3a3a5e;
 }
 
+/* Pokemon Types Colors */
+.type-normal { background: #A8A878; }
+.type-fire { background: #F08030; }
+.type-water { background: #6890F0; }
+.type-electric { background: #F8D030; color: #333; }
+.type-grass { background: #78C850; }
+.type-ice { background: #98D8D8; }
+.type-fighting { background: #C03028; }
+.type-poison { background: #A040A0; }
+.type-ground { background: #E0C068; }
+.type-flying { background: #A890F0; }
+.type-psychic { background: #F85888; }
+.type-bug { background: #A8B820; }
+.type-rock { background: #B8A038; }
+.type-ghost { background: #705898; }
+.type-dragon { background: #7038F8; }
+.type-dark { background: #705848; }
+.type-steel { background: #B8B8D0; }
+.type-fairy { background: #EE99AC; }
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: linear-gradient(135deg, var(--degrade-arriere-plan-debut) 0%, var(--degrade-arriere-plan-fin) 100%);
@@ -329,26 +349,6 @@ body.theme-sombre .icone-theme.lune {
     letter-spacing: 0.5px;
 }
 
-/* Pokemon Types Colors */
-.type-normal { background: #A8A878; }
-.type-fire { background: #F08030; }
-.type-water { background: #6890F0; }
-.type-electric { background: #F8D030; color: #333; }
-.type-grass { background: #78C850; }
-.type-ice { background: #98D8D8; }
-.type-fighting { background: #C03028; }
-.type-poison { background: #A040A0; }
-.type-ground { background: #E0C068; }
-.type-flying { background: #A890F0; }
-.type-psychic { background: #F85888; }
-.type-bug { background: #A8B820; }
-.type-rock { background: #B8A038; }
-.type-ghost { background: #705898; }
-.type-dragon { background: #7038F8; }
-.type-dark { background: #705848; }
-.type-steel { background: #B8B8D0; }
-.type-fairy { background: #EE99AC; }
-
 /* Bouton charger plus */
 .conteneur-charger-plus {
     text-align: center;
@@ -586,6 +586,7 @@ body.theme-sombre .icone-theme.lune {
 }
 
 /* Animations */
+/* La balise keyframes permet de définir des animations CSS */
 @keyframes apparition {
     from {
         opacity: 0;
@@ -643,7 +644,7 @@ body.theme-sombre .icone-theme.lune {
     }
 }
 
-/* Design adaptatif */
+/* Gestion du responsive */
 @media (max-width: 768px) {
     .titre {
         font-size: 2.5rem;
