@@ -18,12 +18,29 @@ const searchInput = document.getElementById('searchInput');
 const searchBtn = document.getElementById('searchBtn');
 const typeFilter = document.getElementById('typeFilter');
 const loadMoreBtn = document.getElementById('loadMoreBtn');
+const themeToggle = document.getElementById('themeToggle');
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
+    initializeTheme();
     loadPokemon();
     setupEventListeners();
 });
+
+// Theme Functions
+function initializeTheme() {
+    // Check for saved theme preference or default to light mode
+    const savedTheme = localStorage.getItem('pokedex-theme') || 'light';
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-theme');
+    }
+}
+
+function toggleTheme() {
+    document.body.classList.toggle('dark-theme');
+    const isDark = document.body.classList.contains('dark-theme');
+    localStorage.setItem('pokedex-theme', isDark ? 'dark' : 'light');
+}
 
 // Event Listeners
 function setupEventListeners() {
@@ -40,6 +57,7 @@ function setupEventListeners() {
     
     typeFilter.addEventListener('change', handleTypeFilter);
     loadMoreBtn.addEventListener('click', loadMorePokemon);
+    themeToggle.addEventListener('click', toggleTheme);
     
     // Close modal with Escape key
     document.addEventListener('keydown', (e) => {
