@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokédex - Découvrez tous les Pokémon</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="title">
+                <span class="pokeball-icon">⚪</span>
+                Pokédex
+            </h1>
+            <p class="subtitle">Explorez l'univers des Pokémon</p>
+        </header>
+
+        <!-- Search Bar -->
+        <div class="search-container">
+            <input type="text" id="searchInput" class="search-input" placeholder="Rechercher un Pokémon...">
+            <button id="searchBtn" class="search-btn">🔍</button>
+        </div>
+
+        <!-- Filter Options -->
+        <div class="filter-container">
+            <select id="typeFilter" class="filter-select">
+                <option value="">Tous les types</option>
+                <option value="normal">Normal</option>
+                <option value="fire">Feu</option>
+                <option value="water">Eau</option>
+                <option value="electric">Électrique</option>
+                <option value="grass">Plante</option>
+                <option value="ice">Glace</option>
+                <option value="fighting">Combat</option>
+                <option value="poison">Poison</option>
+                <option value="ground">Sol</option>
+                <option value="flying">Vol</option>
+                <option value="psychic">Psy</option>
+                <option value="bug">Insecte</option>
+                <option value="rock">Roche</option>
+                <option value="ghost">Spectre</option>
+                <option value="dragon">Dragon</option>
+                <option value="dark">Ténèbres</option>
+                <option value="steel">Acier</option>
+                <option value="fairy">Fée</option>
+            </select>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <p>Chargement des Pokémon...</p>
+        </div>
+
+        <!-- Pokemon Grid -->
+        <div id="pokemonGrid" class="pokemon-grid"></div>
+
+        <!-- Load More Button -->
+        <div class="load-more-container">
+            <button id="loadMoreBtn" class="load-more-btn">Charger plus de Pokémon</button>
+        </div>
+    </div>
+
+    <!-- Modal for Pokemon Details -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div id="modalBody" class="modal-body">
+                <!-- Pokemon details will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
