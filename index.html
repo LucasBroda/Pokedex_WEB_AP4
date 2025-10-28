@@ -199,16 +199,20 @@
                 </div>
 
                 <div class="groupe-champ">
-                    <label for="urlImage" class="etiquette-champ">URL de l'image</label>
+                    <label for="imagePokemon" class="etiquette-champ">Image du Pokémon</label>
                     <input 
-                        type="url" 
-                        id="urlImage" 
-                        name="urlImage" 
-                        class="champ-saisie"
-                        placeholder="https://exemple.com/image.png"
+                        type="file" 
+                        id="imagePokemon" 
+                        name="imagePokemon" 
+                        class="champ-fichier"
+                        accept="image/png, image/jpeg, image/jpg, image/gif, image/webp"
                     >
-                    <span class="message-erreur" id="erreurUrl"></span>
-                    <small class="aide-champ">Laissez vide pour une image par défaut</small>
+                    <div id="apercuImage" class="apercu-image" style="display: none;">
+                        <img id="imageApercu" src="" alt="Aperçu" class="image-apercu">
+                        <button type="button" id="boutonSupprimerImage" class="bouton-supprimer-image">✕</button>
+                    </div>
+                    <span class="message-erreur" id="erreurImage"></span>
+                    <small class="aide-champ">Formats acceptés: PNG, JPG, GIF, WEBP (max 5 Mo)</small>
                 </div>
 
                 <div class="groupe-boutons">

@@ -34,15 +34,18 @@ const modaleCreation = document.getElementById('modaleCreation');
 const boutonFermerCreation = document.querySelector('.bouton-fermer-creation');
 const formulaireCreation = document.getElementById('formulaireCreation');
 const boutonAnnuler = document.getElementById('boutonAnnuler');
+const champImagePokemon = document.getElementById('imagePokemon');
+const apercuImage = document.getElementById('apercuImage');
+const imageApercu = document.getElementById('imageApercu');
+const boutonSupprimerImage = document.getElementById('boutonSupprimerImage');
 
 // Initialisation
 document.addEventListener('DOMContentLoaded', () => {
     initialiserTheme();
     chargerDonneesLocales();
-    chargerPokemon();
     configurerEcouteurs();
     mettreAJourCompteurEquipe();
-    afficherPokemonPersonnalises();
+    chargerPokemon();
 });
 
 // Fonctions de gestion du thème
@@ -129,7 +132,8 @@ function configurerEcouteurs() {
     document.getElementById('taillePokemon').addEventListener('input', validerTaille);
     document.getElementById('poidsPokemon').addEventListener('input', validerPoids);
     document.getElementById('descriptionPokemon').addEventListener('input', validerDescription);
-    document.getElementById('urlImage').addEventListener('input', validerUrl);
+    champImagePokemon.addEventListener('change', gererSelectionImage);
+    boutonSupprimerImage.addEventListener('click', supprimerImage);
     
     // Fermer la modale avec la touche Échap
     document.addEventListener('keydown', (e) => {
@@ -158,10 +162,24 @@ async function chargerPokemon() {
         );
         
         const donneesPokemon = await Promise.all(promessesPokemon);
+        
+        // Ajouter les nouveaux Pokémon de l'API
         tousLesPokemon = [...tousLesPokemon, ...donneesPokemon];
+        
+        // Si c'est le premier chargement, ajouter les Pokémon personnalisés au début
+        if (decalageActuel === 0 && pokemonPersonnalises.length > 0) {
+            tousLesPokemon = [...pokemonPersonnalises, ...tousLesPokemon];
+        }
+        
         pokemonFiltres = tousLesPokemon;
         
-        afficherPokemon(donneesPokemon);
+        // Afficher uniquement les nouveaux Pokémon si ce n'est pas le premier chargement
+        if (decalageActuel === 0) {
+            afficherPokemon(tousLesPokemon, false);
+        } else {
+            afficherPokemon(donneesPokemon);
+        }
+        
         decalageActuel += NOMBRE_POKEMON_PAR_PAGE;
     } catch (error_) {
         console.error('Erreur lors du chargement des Pokémon:', error_);
@@ -718,6 +736,11 @@ function reinitialiserErreurs() {
     }
     
     document.getElementById('compteurCaracteres').textContent = '0';
+    
+    // Réinitialiser l'aperçu de l'image
+    apercuImage.style.display = 'none';
+    imageApercu.src = '';
+    champImagePokemon.value = '';
 }
 
 // Fonctions de validation
@@ -830,23 +853,44 @@ function validerDescription() {
     return effacerErreur('descriptionPokemon', 'erreurDescription');
 }
 
-function validerUrl() {
-    const url = document.getElementById('urlImage').value.trim();
+function gererSelectionImage(e) {
+    const fichier = e.target.files[0];
     
-    // URL optionnelle
-    if (url.length === 0) {
-        return effacerErreur('urlImage', 'erreurUrl');
+    if (!fichier) {
+        return;
     }
     
-    try {
-        new URL(url);
-        if (!url.match(/\.(jpg|jpeg|png|gif|webp|svg)$/i)) {
-            return afficherErreur('urlImage', 'erreurUrl', 'L\'URL doit pointer vers une image (.jpg, .png, .gif, .webp, .svg)');
-        }
-        return effacerErreur('urlImage', 'erreurUrl');
-    } catch {
-        return afficherErreur('urlImage', 'erreurUrl', 'URL invalide');
+    // Vérifier le type de fichier
+    const typesAutorises = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'image/webp'];
+    if (!typesAutorises.includes(fichier.type)) {
+        afficherErreur('imagePokemon', 'erreurImage', 'Format non supporté. Utilisez PNG, JPG, GIF ou WEBP');
+        champImagePokemon.value = '';
+        return;
     }
+    
+    // Vérifier la taille (max 5 Mo)
+    const tailleMax = 5 * 1024 * 1024; // 5 Mo en octets
+    if (fichier.size > tailleMax) {
+        afficherErreur('imagePokemon', 'erreurImage', 'L\'image est trop volumineuse (max 5 Mo)');
+        champImagePokemon.value = '';
+        return;
+    }
+    
+    // Lire et afficher l'aperçu
+    const lecteur = new FileReader();
+    lecteur.addEventListener('load', (event) => {
+        imageApercu.src = event.target.result;
+        apercuImage.style.display = 'block';
+        effacerErreur('imagePokemon', 'erreurImage');
+    });
+    lecteur.readAsDataURL(fichier);
+}
+
+function supprimerImage() {
+    champImagePokemon.value = '';
+    apercuImage.style.display = 'none';
+    imageApercu.src = '';
+    effacerErreur('imagePokemon', 'erreurImage');
 }
 
 function validerFormulaire() {
@@ -855,8 +899,7 @@ function validerFormulaire() {
         validerType(),
         validerTaille(),
         validerPoids(),
-        validerDescription(),
-        validerUrl()
+        validerDescription()
     ];
     
     return validations.every(v => v === true);
@@ -875,7 +918,13 @@ function gererSoumissionFormulaire(e) {
     const taille = Number.parseFloat(document.getElementById('taillePokemon').value);
     const poids = Number.parseFloat(document.getElementById('poidsPokemon').value);
     const description = document.getElementById('descriptionPokemon').value.trim();
-    const urlImage = document.getElementById('urlImage').value.trim();
+    
+    // Récupérer l'image (soit celle téléchargée, soit une par défaut)
+    let urlImage = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/0.png';
+    
+    if (imageApercu.src && imageApercu.src.startsWith('data:')) {
+        urlImage = imageApercu.src; // Utiliser l'image en base64
+    }
     
     // Créer le Pokémon personnalisé
     const pokemonPersonnalise = {
@@ -885,10 +934,10 @@ function gererSoumissionFormulaire(e) {
         weight: Math.round(poids * 10),
         base_experience: 100,
         sprites: {
-            front_default: urlImage || 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/0.png',
+            front_default: urlImage,
             other: {
                 'official-artwork': {
-                    front_default: urlImage || 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/0.png'
+                    front_default: urlImage
                 }
             }
         },
@@ -923,7 +972,13 @@ function gererSoumissionFormulaire(e) {
     
     // Ajouter aux listes
     pokemonPersonnalises.push(pokemonPersonnalise);
-    tousLesPokemon.unshift(pokemonPersonnalise); // Ajouter au début
+    
+    // Vérifier si le Pokémon personnalisé n'est pas déjà dans tousLesPokemon
+    const existeDeja = tousLesPokemon.some(p => p.id === pokemonPersonnalise.id);
+    if (!existeDeja) {
+        tousLesPokemon.unshift(pokemonPersonnalise); // Ajouter au début
+    }
+    
     pokemonFiltres = tousLesPokemon;
     
     // Sauvegarder
@@ -937,13 +992,4 @@ function gererSoumissionFormulaire(e) {
     
     // Message de succès
     alert(`✨ ${nom} a été créé avec succès !`);
-}
-
-// Fonction pour afficher les Pokémon personnalisés au chargement
-function afficherPokemonPersonnalises() {
-    if (pokemonPersonnalises.length > 0) {
-        // Ajouter les Pokémon personnalisés au début de la liste
-        tousLesPokemon = [...pokemonPersonnalises, ...tousLesPokemon];
-        pokemonFiltres = tousLesPokemon;
-    }
 }

@@ -1039,6 +1039,72 @@ body.theme-sombre .icone-theme.lune {
     min-height: 100px;
 }
 
+.champ-fichier {
+    padding: 12px 16px;
+    border: 2px dashed var(--bordure-panneau);
+    border-radius: 12px;
+    font-size: 1rem;
+    background: var(--arriere-plan-champ);
+    color: var(--texte-principal);
+    transition: all 0.3s ease;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.champ-fichier:hover {
+    border-color: #667eea;
+    background: var(--arriere-plan-element-info);
+}
+
+.champ-fichier:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.apercu-image {
+    position: relative;
+    margin-top: 15px;
+    border: 2px solid var(--bordure-panneau);
+    border-radius: 12px;
+    padding: 15px;
+    background: var(--arriere-plan-element-info);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-apercu {
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 8px;
+    object-fit: contain;
+}
+
+.bouton-supprimer-image {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #ef4444;
+    border: none;
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.bouton-supprimer-image:hover {
+    background: #dc2626;
+    transform: scale(1.1);
+}
+
 .message-erreur {
     color: #ef4444;
     font-size: 0.85rem;
