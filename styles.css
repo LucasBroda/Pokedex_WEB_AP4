@@ -29,7 +29,7 @@
     --bordure-panneau: #e0e0e0;
 }
 
-/* Ensemble des variables CSS pour le thème sombre */
+/* Ensemble des variables CSS pour le thème sombre, on regroupe l'ensemble des éléments dans un sélecteur de classe afin de simplifier la gestion des styles */
 body.theme-sombre {
     --degrade-arriere-plan-debut: #1a1a2e;
     --degrade-arriere-plan-fin: #16213e;

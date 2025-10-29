@@ -38,7 +38,7 @@ export function afficherDetailsPokemon(pokemon, donneesEspece) {
                  alt="${pokemon.name}" 
                  class="image-pokemon-modale">
             <h2 class="nom-pokemon-modale">${pokemon.name}</h2>
-            <p class="identifiant-pokemon-modale">#${String(pokemon.id).padStart(3, '0')}</p> /* Le PadStart permet de mettre sous la forme 001-002 etc ... */
+            <p class="identifiant-pokemon-modale">#${String(pokemon.id).padStart(3, '0')}</p>
             <div class="types-pokemon">
                 ${types.map(type => `<span class="badge-type type-${type}">${obtenirNomType(type)}</span>`).join('')}
             </div>
