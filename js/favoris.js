@@ -1,24 +1,22 @@
 import { etat, dom } from './config.js';
 import { sauvegarderFavoris } from './storage.js';
 
-/**
- * Bascule l'état favori d'un Pokémon
- * @param {number} pokemonId - L'ID du Pokémon
- */
+// Permet d'effectuer le basculement d'un Pokémon dans les favoris
 export function basculerFavori(pokemonId) {
     const index = etat.pokemonFavoris.indexOf(pokemonId);
     
+    // Vérifie si le Pokémon est déjà dans les favoris à la dernière position
     if (index === -1) {
-        // Ajouter aux favoris
+        // Ajoute aux favoris
         etat.pokemonFavoris.push(pokemonId);
     } else {
-        // Retirer des favoris
+        // Retire des favoris
         etat.pokemonFavoris.splice(index, 1);
     }
     
     sauvegarderFavoris();
     
-    // Mettre à jour le bouton dans la modale
+    // Met à jour le bouton dans la modale
     const boutonModale = dom.corpsModale.querySelector('.bouton-favori-modale');
     if (boutonModale) {
         const estFavori = etat.pokemonFavoris.includes(pokemonId);

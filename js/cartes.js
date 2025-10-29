@@ -2,27 +2,23 @@ import { etat, dom } from './config.js';
 import { obtenirCouleurType, obtenirNomType } from './utils.js';
 import { recupererDetailsPokemon } from './api.js';
 
-/**
- * Affiche une liste de Pokémon dans la grille
- * @param {Array} listePokemon - Liste des Pokémon à afficher
- * @param {boolean} ajouter - Si true, ajoute à la grille existante, sinon remplace
- */
+// Permet d'afficher la liste des Pokémon
 export function afficherPokemon(listePokemon, ajouter = true) {
+    // Si ajouter est false, on vide la grille avant d'ajouter les nouveaux Pokémon
     if (!ajouter) {
+        // On utilise ici innerHTML pour vider le contenu existant de la grille
         dom.grillePokemon.innerHTML = '';
     }
     
+    // Pour chaque Pokémon, on crée une carte dans lequel il sera affiché
     for (const pokemon of listePokemon) {
         const carte = creerCartePokemon(pokemon);
+        // On utilise appendChild pour ajouter la carte créée à la grille des Pokémon
         dom.grillePokemon.appendChild(carte);
     }
 }
 
-/**
- * Crée une carte Pokémon
- * @param {Object} pokemon - Les données du Pokémon
- * @returns {HTMLElement} L'élément de la carte
- */
+// Permet de créer une carte pour un Pokémon
 export function creerCartePokemon(pokemon) {
     const carte = document.createElement('div');
     carte.className = 'carte-pokemon';
@@ -67,10 +63,7 @@ export function creerCartePokemon(pokemon) {
     return carte;
 }
 
-/**
- * Affiche les détails d'un Pokémon
- * @param {number} id - L'ID du Pokémon
- */
+// Permet d'afficher les détails d'un Pokémon en pariculier
 export function montrerDetailsPokemon(id) {
     recupererDetailsPokemon(id);
 }

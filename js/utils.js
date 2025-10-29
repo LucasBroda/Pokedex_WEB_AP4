@@ -1,24 +1,16 @@
 import { dom } from './config.js';
 
-/**
- * Affiche l'indicateur de chargement
- */
+// Permet d'afficher l'indicateur de chargement
 export function afficherChargement() {
     dom.chargement.classList.add('actif');
 }
 
-/**
- * Cache l'indicateur de chargement
- */
+// Permet de cacher l'indicateur de chargement
 export function cacherChargement() {
     dom.chargement.classList.remove('actif');
 }
 
-/**
- * Retourne la couleur associée à un type de Pokémon
- * @param {string} type - Le type du Pokémon
- * @returns {string} La couleur hexadécimale
- */
+// Permet de retourner la couleur associée à un type de Pokémon
 export function obtenirCouleurType(type) {
     const couleurs = {
         normal: '#A8A878',
@@ -43,11 +35,7 @@ export function obtenirCouleurType(type) {
     return couleurs[type] || '#777';
 }
 
-/**
- * Retourne le nom français d'un type de Pokémon
- * @param {string} type - Le type en anglais
- * @returns {string} Le nom français du type
- */
+// Permet de retourner le nom français d'un type de Pokémon
 export function obtenirNomType(type) {
     const nomsTypes = {
         normal: 'Normal',
@@ -72,11 +60,7 @@ export function obtenirNomType(type) {
     return nomsTypes[type] || type;
 }
 
-/**
- * Retourne le nom français d'une statistique
- * @param {string} stat - Le nom de la statistique en anglais
- * @returns {string} Le nom français de la statistique
- */
+// Permet de retourner le nom français d'une statistique de Pokémon
 export function obtenirNomStat(stat) {
     const nomsStat = {
         hp: 'PV',
@@ -86,5 +70,6 @@ export function obtenirNomStat(stat) {
         'special-defense': 'Défense Spé.',
         speed: 'Vitesse'
     };
+    // [stat] permet d'accéder dynamiquement à la propriété de l'objet ou d'utiliser une valeur par défaut
     return nomsStat[stat] || stat;
 }

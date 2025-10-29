@@ -1,8 +1,8 @@
-// Configuration de l'API
+// Constantes utiles pour l'API et le nombre de Pokémon par page
 export const URL_BASE_API = 'https://pokeapi.co/api/v2';
 export const NOMBRE_POKEMON_PAR_PAGE = 20;
 
-// État de l'application
+// Variables pour gérer l'état de l'application
 export const etat = {
     decalageActuel: 0,
     tousLesPokemon: [],
@@ -14,7 +14,7 @@ export const etat = {
     prochainIdPersonnalise: 10000
 };
 
-// Éléments DOM
+// Éléments relatifs à la manipulation du DOM
 export const dom = {
     grillePokemon: document.getElementById('grillePokemon'),
     chargement: document.getElementById('chargement'),

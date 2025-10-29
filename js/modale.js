@@ -2,31 +2,23 @@ import { etat, dom } from './config.js';
 import { obtenirNomType, obtenirNomStat } from './utils.js';
 import { basculerFavori } from './favoris.js';
 
-/**
- * Ouvre la modale
- */
+// Permet d'ouvrir la modale
 export function ouvrirModale() {
     dom.modale.classList.add('actif');
     document.body.style.overflow = 'hidden';
 }
 
-/**
- * Ferme la modale
- */
+// Permet de fermer la modale
 export function fermerModale() {
     dom.modale.classList.remove('actif');
     document.body.style.overflow = 'auto';
 }
 
-/**
- * Affiche les détails d'un Pokémon de l'API
- * @param {Object} pokemon - Les données du Pokémon
- * @param {Object} donneesEspece - Les données d'espèce du Pokémon
- */
+// Affiche les détails d'un Pokémon de l'API
 export function afficherDetailsPokemon(pokemon, donneesEspece) {
     const types = pokemon.types.map(type => type.type.name);
-    
-    // Obtenir la description en français
+
+    // Permet d'obtenir la description en français
     const descriptionFrancaise = donneesEspece.flavor_text_entries.find(
         entree => entree.language.name === 'fr'
     );
@@ -46,7 +38,7 @@ export function afficherDetailsPokemon(pokemon, donneesEspece) {
                  alt="${pokemon.name}" 
                  class="image-pokemon-modale">
             <h2 class="nom-pokemon-modale">${pokemon.name}</h2>
-            <p class="identifiant-pokemon-modale">#${String(pokemon.id).padStart(3, '0')}</p>
+            <p class="identifiant-pokemon-modale">#${String(pokemon.id).padStart(3, '0')}</p> /* Le PadStart permet de mettre sous la forme 001-002 etc ... */
             <div class="types-pokemon">
                 ${types.map(type => `<span class="badge-type type-${type}">${obtenirNomType(type)}</span>`).join('')}
             </div>
@@ -104,7 +96,7 @@ export function afficherDetailsPokemon(pokemon, donneesEspece) {
         </div>
     `;
     
-    // Ajouter l'écouteur pour le bouton favori dans la modale
+    // Ajoute l'écouteur pour le bouton favori dans la modale
     const boutonFavoriModale = dom.corpsModale.querySelector('.bouton-favori-modale');
     boutonFavoriModale.addEventListener('click', () => {
         basculerFavori(pokemon.id);
@@ -113,10 +105,7 @@ export function afficherDetailsPokemon(pokemon, donneesEspece) {
     ouvrirModale();
 }
 
-/**
- * Affiche les détails d'un Pokémon personnalisé
- * @param {Object} pokemon - Les données du Pokémon personnalisé
- */
+// Affiche les détails d'un Pokémon personnalisé
 export function afficherDetailsPokemonPersonnalise(pokemon) {
     const types = pokemon.types.map(type => type.type.name);
     const estFavori = etat.pokemonFavoris.includes(pokemon.id);
@@ -180,7 +169,7 @@ export function afficherDetailsPokemonPersonnalise(pokemon) {
         </div>
     `;
     
-    // Ajouter l'écouteur pour le bouton favori dans la modale
+    // Ajoute l'écouteur pour le bouton favori dans la modale
     const boutonFavoriModale = dom.corpsModale.querySelector('.bouton-favori-modale');
     boutonFavoriModale.addEventListener('click', () => {
         basculerFavori(pokemon.id);
@@ -189,9 +178,7 @@ export function afficherDetailsPokemonPersonnalise(pokemon) {
     ouvrirModale();
 }
 
-/**
- * Configure les écouteurs d'événements pour la modale
- */
+// Configure les écouteurs pour la modale
 export function configurerEcouteursModale() {
     dom.boutonFermer.addEventListener('click', fermerModale);
     dom.modale.addEventListener('click', (e) => {

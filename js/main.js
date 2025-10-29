@@ -1,7 +1,3 @@
-/**
- * Fichier principal - Orchestre l'initialisation de l'application Pokédex
- */
-
 import { dom } from './config.js';
 import { initialiserTheme, configurerEcouteursTheme } from './theme.js';
 import { chargerDonneesLocales } from './storage.js';
@@ -11,29 +7,25 @@ import { configurerEcouteursEquipe, mettreAJourCompteurEquipe } from './equipe.j
 import { configurerEcouteursRecherche } from './recherche.js';
 import { configurerEcouteursCreation } from './creation.js';
 
-/**
- * Initialise l'application au chargement du DOM
- */
+// Appeler une fois le DOM complètement chargé, permet d'afficher le contenu de l'application
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Initialiser le thème
+    // 1. Initialise le thème
     initialiserTheme();
     
-    // 2. Charger les données du localStorage
+    // 2. Charge les données du localStorage
     chargerDonneesLocales();
-    
-    // 3. Configurer tous les écouteurs d'événements
+
+    // 3. Configure tous les écouteurs d'événements
     configurerEcouteurs();
-    
-    // 4. Mettre à jour le compteur d'équipe
+
+    // 4. Met à jour le compteur d'équipe
     mettreAJourCompteurEquipe();
-    
-    // 5. Charger les Pokémon depuis l'API
+
+    // 5. Charge les Pokémon depuis l'API
     chargerPokemon();
 });
 
-/**
- * Configure tous les écouteurs d'événements de l'application
- */
+// FAit appel à l'ensemble des fonctions de configuration des écouteurs d'événements que l'on peut trouver dans les différents fichiers
 function configurerEcouteurs() {
     configurerEcouteursTheme();
     configurerEcouteursModale();

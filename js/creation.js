@@ -2,9 +2,7 @@ import { etat, dom } from './config.js';
 import { sauvegarderPersonnalises } from './storage.js';
 import { afficherPokemon } from './cartes.js';
 
-/**
- * Ouvre la modale de création
- */
+// Permet d'ouvrir la modale de création de Pokémon
 export function ouvrirModaleCreation() {
     dom.modaleCreation.classList.add('actif');
     document.body.style.overflow = 'hidden';
@@ -12,20 +10,20 @@ export function ouvrirModaleCreation() {
     reinitialiserErreurs();
 }
 
-/**
- * Ferme la modale de création
- */
+// Permet de fermer la modale de création
 export function fermerModaleCreation() {
+    // On retire la classe 'actif' de la modale afin de la fermer
     dom.modaleCreation.classList.remove('actif');
+    // Permet de réactiver le scroll de la page
     document.body.style.overflow = 'auto';
+    // Permet de réinitialiser le formulaire afin de vider les champs
     dom.formulaireCreation.reset();
     reinitialiserErreurs();
 }
 
-/**
- * Réinitialise tous les messages d'erreur
- */
+// Permet de réinitialiser tous les messages d'erreur du formulaire
 function reinitialiserErreurs() {
+    // .message-erreur désigne ici la classe css des messages d'erreur
     const messagesErreur = document.querySelectorAll('.message-erreur');
     for (const message of messagesErreur) {
         message.textContent = '';
@@ -33,6 +31,7 @@ function reinitialiserErreurs() {
     
     const champs = document.querySelectorAll('.champ-saisie');
     for (const champ of champs) {
+        // .champ-saisie désigne ici la classe css des champs du formulaire, on enlève la classe 'invalide' de ces éléments
         champ.classList.remove('invalide');
     }
     
@@ -44,9 +43,7 @@ function reinitialiserErreurs() {
     dom.champImagePokemon.value = '';
 }
 
-/**
- * Affiche un message d'erreur pour un champ
- */
+// Permet l'affichage d'un message d'erreur pour un champ
 function afficherErreur(idChamp, idErreur, message) {
     const champ = document.getElementById(idChamp);
     const erreur = document.getElementById(idErreur);
@@ -55,9 +52,7 @@ function afficherErreur(idChamp, idErreur, message) {
     return false;
 }
 
-/**
- * Efface un message d'erreur pour un champ
- */
+// Permet de supprimer le message d'erreur pour un champ précis
 function effacerErreur(idChamp, idErreur) {
     const champ = document.getElementById(idChamp);
     const erreur = document.getElementById(idErreur);
@@ -66,10 +61,9 @@ function effacerErreur(idChamp, idErreur) {
     return true;
 }
 
-/**
- * Valide le nom du Pokémon
- */
+// Permet de valider le nom du Pokémon
 export function validerNom() {
+    // Le .trim() permet de supprimer les espaces avant et après le texte
     const nom = document.getElementById('nomPokemon').value.trim();
     
     if (nom.length === 0) {
@@ -84,6 +78,7 @@ export function validerNom() {
         return afficherErreur('nomPokemon', 'erreurNom', 'Le nom ne peut pas dépasser 20 caractères');
     }
     
+    // Trouvé sur internet, représente un regex, le .test() prend en paramètre le nom du Pokémon, et vérifie qu'il ne contient que des lettres (majuscules, minuscules, accents), des espaces et des tirets
     if (!/^[a-zA-ZÀ-ÿ\s-]+$/.test(nom)) {
         return afficherErreur('nomPokemon', 'erreurNom', 'Le nom ne peut contenir que des lettres, espaces et tirets');
     }
@@ -91,9 +86,7 @@ export function validerNom() {
     return effacerErreur('nomPokemon', 'erreurNom');
 }
 
-/**
- * Valide le type du Pokémon
- */
+// Permet de valider le type du Pokémon lors de la création
 export function validerType() {
     const type = document.getElementById('typePokemon').value;
     
@@ -104,9 +97,7 @@ export function validerType() {
     return effacerErreur('typePokemon', 'erreurType');
 }
 
-/**
- * Valide la taille du Pokémon
- */
+// Permet de valider la taille du Pokémon
 export function validerTaille() {
     const taille = document.getElementById('taillePokemon').value;
     
@@ -114,6 +105,7 @@ export function validerTaille() {
         return afficherErreur('taillePokemon', 'erreurTaille', 'La taille est requise');
     }
     
+    // Permet de convertir la taille en nombre à virgule flottante
     const tailleNum = Number.parseFloat(taille);
     
     if (Number.isNaN(tailleNum) || tailleNum < 0.1) {
@@ -127,9 +119,7 @@ export function validerTaille() {
     return effacerErreur('taillePokemon', 'erreurTaille');
 }
 
-/**
- * Valide le poids du Pokémon
- */
+// Permet de valider le poids du Pokémon
 export function validerPoids() {
     const poids = document.getElementById('poidsPokemon').value;
     
@@ -150,9 +140,7 @@ export function validerPoids() {
     return effacerErreur('poidsPokemon', 'erreurPoids');
 }
 
-/**
- * Valide la description du Pokémon
- */
+// Permet de valider la description du Pokémon
 export function validerDescription() {
     const description = document.getElementById('descriptionPokemon').value.trim();
     const compteur = document.getElementById('compteurCaracteres');
@@ -174,9 +162,7 @@ export function validerDescription() {
     return effacerErreur('descriptionPokemon', 'erreurDescription');
 }
 
-/**
- * Gère la sélection d'une image
- */
+// Gère la sélection de l'image du Pokémon
 export function gererSelectionImage(e) {
     const fichier = e.target.files[0];
     
@@ -184,7 +170,7 @@ export function gererSelectionImage(e) {
         return;
     }
     
-    // Vérifier le type de fichier
+    // Vérifie le type de fichier afin de n'accepter que les images
     const typesAutorises = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'image/webp'];
     if (!typesAutorises.includes(fichier.type)) {
         afficherErreur('imagePokemon', 'erreurImage', 'Format non supporté. Utilisez PNG, JPG, GIF ou WEBP');
@@ -192,8 +178,8 @@ export function gererSelectionImage(e) {
         return;
     }
     
-    // Vérifier la taille (max 5 Mo)
-    const tailleMax = 5 * 1024 * 1024; // 5 Mo en octets
+    // Vérifie la taille (max 5 Mo) afin de ne pas surcharger le localStorage
+    const tailleMax = 5 * 1024 * 1024; // 5 Mo en octets, trouvé sur internet
     if (fichier.size > tailleMax) {
         afficherErreur('imagePokemon', 'erreurImage', 'L\'image est trop volumineuse (max 5 Mo)');
         dom.champImagePokemon.value = '';
@@ -210,19 +196,16 @@ export function gererSelectionImage(e) {
     lecteur.readAsDataURL(fichier);
 }
 
-/**
- * Supprime l'image sélectionnée
- */
+// Permet de supprimer l'image sélectionnée
 export function supprimerImage() {
     dom.champImagePokemon.value = '';
+    // Permet de cacher l'aperçu de l'image
     dom.apercuImage.style.display = 'none';
     dom.imageApercu.src = '';
     effacerErreur('imagePokemon', 'erreurImage');
 }
 
-/**
- * Valide tous les champs du formulaire
- */
+// Permet de valider l'ensemble du formulaire en appellant chaque fonction de validation créée précédemment
 function validerFormulaire() {
     const validations = [
         validerNom(),
@@ -232,12 +215,11 @@ function validerFormulaire() {
         validerDescription()
     ];
     
+    // Retourne true si toutes les validations sont vraies, sinon false
     return validations.every(v => v === true);
 }
 
-/**
- * Gère la soumission du formulaire
- */
+// Permet de gérer la soumission du formulaire de création de Pokémon personnalisé
 export function gererSoumissionFormulaire(e) {
     e.preventDefault();
     
@@ -245,21 +227,22 @@ export function gererSoumissionFormulaire(e) {
         return;
     }
     
-    // Récupérer les valeurs du formulaire
+    // Récupère les valeurs du formulaire
     const nom = document.getElementById('nomPokemon').value.trim();
     const type = document.getElementById('typePokemon').value;
     const taille = Number.parseFloat(document.getElementById('taillePokemon').value);
     const poids = Number.parseFloat(document.getElementById('poidsPokemon').value);
     const description = document.getElementById('descriptionPokemon').value.trim();
-    
-    // Récupérer l'image (soit celle téléchargée, soit une par défaut)
+
+    // Récupère l'image (soit celle téléchargée, soit une par défaut) mais ça marche pas mdr
     let urlImage = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/0.png';
     
+    // Si une image a été sélectionnée, on utilise son URL en base64
     if (dom.imageApercu.src?.startsWith('data:')) {
         urlImage = dom.imageApercu.src; // Utiliser l'image en base64
     }
     
-    // Créer le Pokémon personnalisé
+    // Crée le Pokémon personnalisé avec les données saisies plus haut ainsi que des valeurs par défaut pour les autres propriétés
     const pokemonPersonnalise = {
         id: etat.prochainIdPersonnalise++,
         name: nom.toLowerCase(),
@@ -303,33 +286,31 @@ export function gererSoumissionFormulaire(e) {
         personnalise: true
     };
     
-    // Ajouter aux listes
+    // Ajoute aux listes
     etat.pokemonPersonnalises.push(pokemonPersonnalise);
     
-    // Vérifier si le Pokémon personnalisé n'est pas déjà dans tousLesPokemon
+    // Vérifie si le Pokémon personnalisé n'est pas déjà dans tousLesPokemon
     const existeDeja = etat.tousLesPokemon.some(p => p.id === pokemonPersonnalise.id);
     if (!existeDeja) {
-        etat.tousLesPokemon.unshift(pokemonPersonnalise); // Ajouter au début
+        etat.tousLesPokemon.unshift(pokemonPersonnalise); // Ajoute au début grâce à unshift
     }
     
     etat.pokemonFiltres = etat.tousLesPokemon;
     
-    // Sauvegarder
+    // Sauvegarde les Pokémon personnalisés dans le localStorage dédié
     sauvegarderPersonnalises();
     
-    // Afficher
+    // Affiche le nouveau Pokémon
     afficherPokemon(etat.tousLesPokemon, false);
-    
-    // Fermer la modale
+
+    // Ferme la modale
     fermerModaleCreation();
     
     // Message de succès
     alert(`✨ ${nom} a été créé avec succès !`);
 }
 
-/**
- * Configure les écouteurs d'événements pour le formulaire de création
- */
+// Permet de configurer les écouteurs d'événements liés à la création de Pokémon personnalisé
 export function configurerEcouteursCreation() {
     dom.boutonCreerPokemon.addEventListener('click', ouvrirModaleCreation);
     dom.boutonFermerCreation.addEventListener('click', fermerModaleCreation);
